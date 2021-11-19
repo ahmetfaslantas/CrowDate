@@ -32,8 +32,23 @@ class _HomePageState extends State<HomePage> {
                 accountName: Text("Name"), // TODO: Replace with user name.
                 accountEmail: Text("Email"), // TODO: Replace with user email.
                 currentAccountPicture: CircleAvatar(
-                  backgroundImage: AssetImage("assets/icon/Icon-512.png"), // TODO: Replace with network image.
+                  backgroundImage: AssetImage(
+                      "assets/icon/Icon-512.png"), // TODO: Replace with network image.
                 )),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.notifications, color: Colors.black54),
+                  Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: Text("Followed Events"),
+                  )
+                ],
+              ),
+              onTap: () {
+                // TODO: Route to followed events page.
+              },
+            ),
             Expanded(child: Container()),
             Divider(
               color: Colors.black54,
@@ -42,7 +57,7 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               title: Row(
                 children: [
-                  Icon(Icons.logout),
+                  Icon(Icons.logout, color: Colors.black54),
                   Padding(
                     padding: EdgeInsets.only(left: 8),
                     child: Text("Logout"),
@@ -50,7 +65,10 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Logged out!"),));
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("Logged out!"),
+                ));
               },
             )
           ],
