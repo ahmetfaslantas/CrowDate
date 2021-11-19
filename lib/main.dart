@@ -16,7 +16,7 @@ class CrowDate extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(title: 'CrowDate'),
+      home: const HomePage(),
     );
   }
 }
