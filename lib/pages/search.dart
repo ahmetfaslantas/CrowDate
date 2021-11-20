@@ -60,68 +60,105 @@ class _SearchState extends State<Search> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(4)),
               child: Container(
-                height: 500,
+                height: 300,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      ListTile(
-                        title: Text(
-                          "Categories",
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Search Filters",
                           style: TextStyle(color: Colors.black54, fontSize: 20),
                         ),
-                        subtitle: Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Wrap(
-                            spacing: 8,
-                            children: [
-                              FilterChip(
-                                  label: Text("Sports"),
-                                  onSelected: (bool value) {}),
-                              FilterChip(
-                                  label: Text("Comedy"),
-                                  onSelected: (bool value) {}),
-                              FilterChip(
-                                  label: Text("Community"),
-                                  onSelected: (bool value) {}),
-                              FilterChip(
-                                  label: Text("Food and Drinks"),
-                                  onSelected: (bool value) {}),
-                            ],
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Country",
+                              style: TextStyle(color: Colors.black54),
+                            ),
                           ),
-                        ),
+                          Expanded(child: Container()),
+                          SizedBox(
+                            width: 200,
+                            child: DropdownButton<String>(
+                              isExpanded: true,
+                              borderRadius: BorderRadius.circular(4),
+                              hint: Text("Select Country"),
+                              value: dropdownValue,
+                              onChanged: (String? data) {
+                                setState(() {
+                                  dropdownValue = data!;
+                                });
+                              },
+                              items: [
+                                DropdownMenuItem(
+                                    value: "USA", child: Text("USA")),
+                                DropdownMenuItem(
+                                    value: "Canada", child: Text("Canada")),
+                                DropdownMenuItem(
+                                    value: "UK", child: Text("UK")),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                       Divider(
                         height: 8,
                         color: Colors.black,
                       ),
-                      DropdownButton<String>(
-                        borderRadius: BorderRadius.circular(4),
-                        isExpanded: true,
-                        hint: Text("Select Country"),
-                        value: dropdownValue,
-                        onChanged: (String? data) {
-                          setState(() {
-                            dropdownValue = data!;
-                          });
-                        },
-                        items: [
-                          DropdownMenuItem(value: "USA", child: Text("USA")),
-                          DropdownMenuItem(
-                              value: "Canada", child: Text("Canada")),
-                          DropdownMenuItem(value: "UK", child: Text("UK")),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Categories",
+                              style: TextStyle(color: Colors.black54),
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Wrap(
+                          spacing: 8,
+                          children: [
+                            FilterChip(
+                                label: Text("Sports"),
+                                onSelected: (bool value) {}),
+                            FilterChip(
+                                label: Text("Comedy"),
+                                onSelected: (bool value) {}),
+                            FilterChip(
+                                selected: true,
+                                label: Text("Community"),
+                                onSelected: (bool value) {}),
+                            FilterChip(
+                                label: Text("Food and Drinks"),
+                                onSelected: (bool value) {}),
+                          ],
+                        ),
                       ),
                       Expanded(child: Container()),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          child: Text("Apply"),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            child: Text("Cancel"),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                          TextButton(
+                            child: Text("Apply"),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
                       )
                     ],
                   ),
