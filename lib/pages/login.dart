@@ -1,9 +1,21 @@
+import 'package:crowdate/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  @override
+  void dispose() {
+    super.dispose();
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +76,12 @@ class Login extends StatelessWidget {
                       ),
                       SignInButton(
                         Buttons.Google,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()),
+                              (Route<dynamic> route) => false);
+                        },
                       )
                     ],
                   ),

@@ -1,4 +1,7 @@
 import 'package:crowdate/model/event.dart';
+import 'package:crowdate/pages/following.dart';
+import 'package:crowdate/pages/login.dart';
+import 'package:crowdate/pages/search.dart';
 import 'package:crowdate/view/eventpreview.dart';
 import 'package:crowdate/viewmodel/event.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +22,10 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Search()));
+            },
           )
         ],
       ),
@@ -45,7 +51,9 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               onTap: () {
-                // TODO: Route to followed events page.
+                Navigator.pop(context);
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Following()));
               },
             ),
             Expanded(child: Container()),
@@ -65,6 +73,8 @@ class _HomePageState extends State<HomePage> {
               ),
               onTap: () {
                 Navigator.pop(context);
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Login()));
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text("Logged out!"),
                 ));

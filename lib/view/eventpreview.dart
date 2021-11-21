@@ -1,3 +1,4 @@
+import 'package:crowdate/pages/details.dart';
 import 'package:crowdate/viewmodel/event.dart';
 import 'package:flutter/material.dart';
 
@@ -50,7 +51,11 @@ class EventPreview extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: TextButton(
                     child: const Text('DETAILS'),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => EventDetails(model: model,)
+                      ));
+                    },
                   ),
                 ),
                 Padding(
