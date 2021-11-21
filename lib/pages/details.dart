@@ -121,6 +121,7 @@ class EventDetails extends StatelessWidget {
               child: Text(
                 "Event Details Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce congue pretium nisi a dignissim. Duis bibendum iaculis porttitor. Aenean sagittis eros est, non feugiat lorem tincidunt eu.",
                 style: TextStyle(fontSize: 18, color: Colors.black54),
+                textAlign: TextAlign.justify,
               ),
             ),
           ],
