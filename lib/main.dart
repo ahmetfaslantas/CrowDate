@@ -13,10 +13,10 @@ class CrowDate extends StatelessWidget {
     return MaterialApp(
       title: 'CrowDate',
       theme: ThemeData(
-
         primarySwatch: Colors.blue,
       ),
       home: const HomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
