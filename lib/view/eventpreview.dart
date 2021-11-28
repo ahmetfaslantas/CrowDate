@@ -27,20 +27,20 @@ class EventPreview extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primary),
                   child: Text(
                     model.daysUntil.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         color: Colors.white),
                   ),
                 )),
-            Container(
+            SizedBox(
                 height: 200.0,
                 child: Image(
                   image: NetworkImage(model.imageURL),
                   fit: BoxFit.cover,
                 )),
             Container(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               alignment: Alignment.centerLeft,
               child: Text(model.address),
             ),
@@ -62,12 +62,12 @@ class EventPreview extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
                     alignment: Alignment.centerRight,
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.notification_add,
                       color: Colors.black54,
                     ),
                     onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Event added to the following list!"),
                       ));
                     },

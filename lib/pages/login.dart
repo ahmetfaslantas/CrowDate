@@ -14,7 +14,7 @@ class _LoginState extends State<Login> {
   @override
   void dispose() {
     super.dispose();
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
   }
 
   @override
@@ -40,21 +40,21 @@ class _LoginState extends State<Login> {
                             8, 8, 8, MediaQuery.of(context).size.height / 32),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(50.0),
-                          child: Image(
+                          child: const Image(
                             image: AssetImage("assets/icon/Icon-512.png"),
                             width: 100,
                             height: 100,
                           ),
                         ),
                       ),
-                      Text(
+                      const Text(
                         "Hi There,",
                         style: TextStyle(
                             fontWeight: FontWeight.w800,
                             fontSize: 36,
                             color: Colors.white),
                       ),
-                      Text(
+                      const Text(
                         "I'm CrowDate",
                         style: TextStyle(
                             fontWeight: FontWeight.w800,
@@ -67,7 +67,7 @@ class _LoginState extends State<Login> {
                             MediaQuery.of(context).size.height / 32,
                             8,
                             MediaQuery.of(context).size.height / 32),
-                        child: Text(
+                        child: const Text(
                           "Your Personal Event Finder App",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -79,7 +79,7 @@ class _LoginState extends State<Login> {
                         onPressed: () {
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(
-                                  builder: (context) => HomePage()),
+                                  builder: (context) => const HomePage()),
                               (Route<dynamic> route) => false);
                         },
                       )

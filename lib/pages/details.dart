@@ -21,7 +21,7 @@ class EventDetails extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Image(
                   image: NetworkImage(model.imageURL),
@@ -31,7 +31,7 @@ class EventDetails extends StatelessWidget {
               padding: const EdgeInsets.only(left: 8.0, top: 8.0),
               child: Text(
                 model.name,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
             Padding(
@@ -55,7 +55,7 @@ class EventDetails extends StatelessWidget {
                           Text(
                             model.address,
                             style:
-                                TextStyle(fontSize: 18, color: Colors.black54),
+                                const TextStyle(fontSize: 18, color: Colors.black54),
                           )
                         ],
                       ),
@@ -71,7 +71,7 @@ class EventDetails extends StatelessWidget {
                           Text(
                             model.date,
                             style:
-                                TextStyle(fontSize: 18, color: Colors.black54),
+                                const TextStyle(fontSize: 18, color: Colors.black54),
                           )
                         ],
                       ),
@@ -91,7 +91,7 @@ class EventDetails extends StatelessWidget {
                                 " " +
                                 model.currency,
                             style:
-                                TextStyle(fontSize: 18, color: Colors.black54),
+                                const TextStyle(fontSize: 18, color: Colors.black54),
                           )
                         ],
                       ),
@@ -107,7 +107,7 @@ class EventDetails extends StatelessWidget {
                           Text(
                             model.genre,
                             style:
-                                TextStyle(fontSize: 18, color: Colors.black54),
+                                const TextStyle(fontSize: 18, color: Colors.black54),
                           )
                         ],
                       ),
@@ -116,8 +116,8 @@ class EventDetails extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text(
                 "Event Details Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce congue pretium nisi a dignissim. Duis bibendum iaculis porttitor. Aenean sagittis eros est, non feugiat lorem tincidunt eu.",
                 style: TextStyle(fontSize: 18, color: Colors.black54),
@@ -128,9 +128,9 @@ class EventDetails extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.notifications_off),
+        child: const Icon(Icons.notifications_off),
         onPressed: () {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Event Unfollowed")));
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Event Unfollowed")));
         },
       ),
     );

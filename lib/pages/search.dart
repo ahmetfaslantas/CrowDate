@@ -8,7 +8,7 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  final TextEditingController _searchController = new TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   String dropdownValue = "USA";
 
   @override
@@ -24,16 +24,16 @@ class _SearchState extends State<Search> {
             child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search),
+                  prefixIcon: const Icon(Icons.search),
                   suffixIcon: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        icon: Icon(Icons.clear),
+                        icon: const Icon(Icons.clear),
                         onPressed: _searchController.clear,
                       ),
                       IconButton(
-                        icon: Icon(Icons.menu),
+                        icon: const Icon(Icons.menu),
                         onPressed: showFilterDialog,
                       ),
                     ],
@@ -59,14 +59,14 @@ class _SearchState extends State<Search> {
             return Dialog(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(4)),
-              child: Container(
+              child: SizedBox(
                 height: 300,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Align(
+                      const Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "Search Filters",
@@ -76,8 +76,8 @@ class _SearchState extends State<Search> {
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
                             child: Text(
                               "Country",
                               style: TextStyle(color: Colors.black54),
@@ -89,14 +89,14 @@ class _SearchState extends State<Search> {
                             child: DropdownButton<String>(
                               isExpanded: true,
                               borderRadius: BorderRadius.circular(4),
-                              hint: Text("Select Country"),
+                              hint: const Text("Select Country"),
                               value: dropdownValue,
                               onChanged: (String? data) {
                                 setState(() {
                                   dropdownValue = data!;
                                 });
                               },
-                              items: [
+                              items: const [
                                 DropdownMenuItem(
                                     value: "USA", child: Text("USA")),
                                 DropdownMenuItem(
@@ -108,12 +108,12 @@ class _SearchState extends State<Search> {
                           ),
                         ],
                       ),
-                      Divider(
+                      const Divider(
                         height: 8,
                         color: Colors.black,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
@@ -127,17 +127,17 @@ class _SearchState extends State<Search> {
                           spacing: 8,
                           children: [
                             FilterChip(
-                                label: Text("Sports"),
+                                label: const Text("Sports"),
                                 onSelected: (bool value) {}),
                             FilterChip(
-                                label: Text("Comedy"),
+                                label: const Text("Comedy"),
                                 onSelected: (bool value) {}),
                             FilterChip(
                                 selected: true,
-                                label: Text("Community"),
+                                label: const Text("Community"),
                                 onSelected: (bool value) {}),
                             FilterChip(
-                                label: Text("Food and Drinks"),
+                                label: const Text("Food and Drinks"),
                                 onSelected: (bool value) {}),
                           ],
                         ),
@@ -147,13 +147,13 @@ class _SearchState extends State<Search> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           TextButton(
-                            child: Text("Cancel"),
+                            child: const Text("Cancel"),
                             onPressed: () {
                               Navigator.pop(context);
                             },
                           ),
                           TextButton(
-                            child: Text("Apply"),
+                            child: const Text("Apply"),
                             onPressed: () {
                               Navigator.pop(context);
                             },

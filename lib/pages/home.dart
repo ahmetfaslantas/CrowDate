@@ -18,13 +18,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Recent Events"),
+        title: const Text("Recent Events"),
         actions: [
           IconButton(
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
             onPressed: () {
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => Search()));
+                  .push(MaterialPageRoute(builder: (context) => const Search()));
             },
           )
         ],
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            UserAccountsDrawerHeader(
+            const UserAccountsDrawerHeader(
                 accountName: Text("Name"), // TODO: Replace with user name.
                 accountEmail: Text("Email"), // TODO: Replace with user email.
                 currentAccountPicture: CircleAvatar(
@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
                 )),
             ListTile(
               title: Row(
-                children: [
+                children: const [
                   Icon(Icons.notifications, color: Colors.black54),
                   Padding(
                     padding: EdgeInsets.only(left: 8),
@@ -53,17 +53,17 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.pop(context);
                 Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => Following()));
+                    .push(MaterialPageRoute(builder: (context) => const Following()));
               },
             ),
             Expanded(child: Container()),
-            Divider(
+            const Divider(
               color: Colors.black54,
               height: 1,
             ),
             ListTile(
               title: Row(
-                children: [
+                children: const [
                   Icon(Icons.logout, color: Colors.black54),
                   Padding(
                     padding: EdgeInsets.only(left: 8),
@@ -74,8 +74,8 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.pop(context);
                 Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => Login()));
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    .push(MaterialPageRoute(builder: (context) => const Login()));
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text("Logged out!"),
                 ));
               },
