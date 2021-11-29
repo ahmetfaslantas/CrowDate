@@ -33,11 +33,11 @@ class EventViewModel {
     return model.currency;
   }
 
-  int get minPrice {
+  double get minPrice {
     return model.minPrice;
   }
 
-  int get maxPrice {
+  double get maxPrice {
     return model.maxPrice;
   }
 
