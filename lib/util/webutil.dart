@@ -10,7 +10,8 @@ class WebUtil {
 
   static Future<List<EventModel>> fetchRecentEvents() async {
     final queryParams = {
-      "apikey": apiKey
+      "apikey": apiKey,
+      "sort": "date,asc"
     };
 
     final uri = Uri.https(_baseUrl, "/discovery/v2/events.json", queryParams);
