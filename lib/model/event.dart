@@ -25,7 +25,10 @@ class EventModel {
       required this.address});
 
   factory EventModel.fromJSON(Map<String, dynamic> json) {
-    dynamic image = {"url": "https://s1.ticketm.net/dam/c/014/8d67fea3-d080-4e72-9094-ecf138a37014_105391_TABLET_LANDSCAPE_16_9.jpg"};
+    dynamic image = {
+      "url":
+          "https://s1.ticketm.net/dam/c/014/8d67fea3-d080-4e72-9094-ecf138a37014_105391_TABLET_LANDSCAPE_16_9.jpg"
+    };
     for (var img in json["images"]) {
       if (!img["fallback"] && img["width"] > 640) {
         image = img;

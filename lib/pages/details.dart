@@ -31,7 +31,8 @@ class EventDetails extends StatelessWidget {
               padding: const EdgeInsets.only(left: 8.0, top: 8.0),
               child: Text(
                 model.name,
-                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
             Padding(
@@ -54,8 +55,8 @@ class EventDetails extends StatelessWidget {
                           ),
                           Text(
                             model.address,
-                            style:
-                                const TextStyle(fontSize: 18, color: Colors.black54),
+                            style: const TextStyle(
+                                fontSize: 18, color: Colors.black54),
                           )
                         ],
                       ),
@@ -70,8 +71,8 @@ class EventDetails extends StatelessWidget {
                           ),
                           Text(
                             model.date,
-                            style:
-                                const TextStyle(fontSize: 18, color: Colors.black54),
+                            style: const TextStyle(
+                                fontSize: 18, color: Colors.black54),
                           )
                         ],
                       ),
@@ -90,8 +91,8 @@ class EventDetails extends StatelessWidget {
                                 model.maxPrice.toString() +
                                 " " +
                                 model.currency,
-                            style:
-                                const TextStyle(fontSize: 18, color: Colors.black54),
+                            style: const TextStyle(
+                                fontSize: 18, color: Colors.black54),
                           )
                         ],
                       ),
@@ -106,8 +107,8 @@ class EventDetails extends StatelessWidget {
                           ),
                           Text(
                             model.genre,
-                            style:
-                                const TextStyle(fontSize: 18, color: Colors.black54),
+                            style: const TextStyle(
+                                fontSize: 18, color: Colors.black54),
                           )
                         ],
                       ),
@@ -130,7 +131,8 @@ class EventDetails extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.notifications_off),
         onPressed: () {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Event Unfollowed")));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text("Event Unfollowed")));
         },
       ),
     );

@@ -4,13 +4,16 @@ import 'package:crowdate/model/event.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
+// TODO: Implement a data cleaner/analyzer to make sure all fields are valid.
+
 class WebUtil {
   static final String apiKey = dotenv.get("APIKEY");
   static const String _baseUrl = "app.ticketmaster.com";
 
-  static Future<List<EventModel>> fetchRecentEvents() async {
+  static Future<List<EventModel>> fetchRecentEvents({int page = 1}) async {
     final queryParams = {
-      "apikey": apiKey
+      "apikey": apiKey,
+      "page": page.toString()
     };
 
     final uri = Uri.https(_baseUrl, "/discovery/v2/events.json", queryParams);

@@ -53,8 +53,9 @@ class EventPreview extends StatelessWidget {
                     child: const Text('DETAILS'),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => EventDetails(model: model,)
-                      ));
+                          builder: (context) => EventDetails(
+                                model: model,
+                              )));
                     },
                   ),
                 ),

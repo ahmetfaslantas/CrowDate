@@ -3,7 +3,7 @@ import 'package:crowdate/viewmodel/eventlist.dart';
 import 'package:flutter/material.dart';
 
 // TODO: Implement swipe to refresh.
-// TODO: Implement loading more events when end of the list is reached.
+// TODO: Add loading icon at the end of page when more events are loading.
 
 class EventPreviewList extends StatelessWidget {
   final EventListViewModel eventsPreview;
@@ -14,12 +14,20 @@ class EventPreviewList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return eventsPreview.eventsModel.isNotEmpty
-        ? ListView.builder(
-            itemCount: eventsPreview.eventsModel.length,
-            itemBuilder: (BuildContext context, int index) {
-              return EventPreview(model: eventsPreview.eventsModel[index]);
-            },
-          )
+        ? NotificationListener<ScrollEndNotification>(
+          onNotification: (scrollInfo) {
+            if (scrollInfo.metrics.maxScrollExtent == scrollInfo.metrics.pixels) {
+              eventsPreview.fetchRecentEvents(refresh: false);
+            }
+            return true;
+          },
+          child: ListView.builder(
+              itemCount: eventsPreview.eventsModel.length,
+              itemBuilder: (BuildContext context, int index) {
+                return EventPreview(model: eventsPreview.eventsModel[index]);
+              },
+            ),
+        )
         : const Center(
             child: CircularProgressIndicator(),
           );

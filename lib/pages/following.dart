@@ -64,7 +64,20 @@ class Following extends StatelessWidget {
               })),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (context, index) => EventPreview(model: EventViewModel(model: EventModel(address: "1414 Kelly Drive West Virginia", currency: "USD", id: "asd", date: "2021-12-12", genre: "Pop", subGenre: "HipHop", maxPrice: 12, minPrice: 12, name: "Concert", imageURL: "https://s1.ticketm.net/dam/a/bc3/48a3747f-f6e1-403f-bca8-658c20b98bc3_1544981_TABLET_LANDSCAPE_16_9.jpg"))),
+              (context, index) => EventPreview(
+                  model: EventViewModel(
+                      model: EventModel(
+                          address: "1414 Kelly Drive West Virginia",
+                          currency: "USD",
+                          id: "asd",
+                          date: "2021-12-12",
+                          genre: "Pop",
+                          subGenre: "HipHop",
+                          maxPrice: 12,
+                          minPrice: 12,
+                          name: "Concert",
+                          imageURL:
+                              "https://s1.ticketm.net/dam/a/bc3/48a3747f-f6e1-403f-bca8-658c20b98bc3_1544981_TABLET_LANDSCAPE_16_9.jpg"))),
               childCount: 3,
             ),
           )
