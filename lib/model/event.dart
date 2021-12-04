@@ -24,6 +24,7 @@ class EventModel {
       required this.maxPrice,
       required this.address});
 
+  // TODO: Find a better solution than this.
   factory EventModel.fromJSON(Map<String, dynamic> json) {
     dynamic image = {
       "url":
@@ -37,7 +38,7 @@ class EventModel {
 
     var venues = json["_embedded"]["venues"][0];
 
-    String address = venues["country"]["name"] + venues["city"]["name"];
+    String address = venues["country"]["name"] + " " + venues["city"]["name"];
 
     return EventModel(
         id: json["id"],
@@ -46,9 +47,9 @@ class EventModel {
         imageURL: image["url"],
         genre: json["classifications"][0]["genre"]["name"],
         subGenre: json["classifications"][0]["subGenre"]["name"],
-        currency: json["priceRanges"][0]["currency"],
-        minPrice: json["priceRanges"][0]["min"],
-        maxPrice: json["priceRanges"][0]["max"],
+        currency: json.containsKey("priceRanges") ? json["priceRanges"][0]["currency"] : "USD",
+        minPrice: json.containsKey("priceRanges") ? json["priceRanges"][0]["min"] : 5,
+        maxPrice: json.containsKey("priceRanges") ? json["priceRanges"][0]["max"] : 5,
         address: address);
   }
 }

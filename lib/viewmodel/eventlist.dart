@@ -4,12 +4,12 @@ import 'package:flutter/foundation.dart';
 
 class EventListViewModel extends ChangeNotifier {
   List<EventViewModel> eventsModel = [];
-  // TODO: Reset this page variable when another screen is opened.
   int page = 1;
 
   Future<void> fetchRecentEvents({bool refresh = true}) async {
     if (refresh) {
       eventsModel = [];
+      page = 1;
       notifyListeners();
     }
 
