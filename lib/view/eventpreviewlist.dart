@@ -3,8 +3,6 @@ import 'package:crowdate/viewmodel/event.dart';
 import 'package:crowdate/viewmodel/eventlist.dart';
 import 'package:flutter/material.dart';
 
-// TODO: Implement swipe to refresh.
-
 class EventPreviewList extends StatelessWidget {
   final EventListViewModel eventsPreview;
 
@@ -22,19 +20,24 @@ class EventPreviewList extends StatelessWidget {
               }
               return true;
             },
-            child: ListView(
-              children: [
-                for (EventViewModel item in eventsPreview.eventsModel)
-                  EventPreview(model: item),
-                Column(
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: CircularProgressIndicator(),
-                    )
-                  ],
-                )
-              ],
+            child: RefreshIndicator(
+              onRefresh: () {
+                return eventsPreview.fetchRecentEvents(primary: false);
+              },
+              child: ListView(
+                children: [
+                  for (EventViewModel item in eventsPreview.eventsModel)
+                    EventPreview(model: item),
+                  Column(
+                    children: const [
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: CircularProgressIndicator(),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ))
         : const Center(
             child: CircularProgressIndicator(),

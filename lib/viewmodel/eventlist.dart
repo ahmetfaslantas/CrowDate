@@ -6,11 +6,11 @@ class EventListViewModel extends ChangeNotifier {
   List<EventViewModel> eventsModel = [];
   int page = 1;
 
-  Future<void> fetchRecentEvents({bool refresh = true}) async {
+  Future<void> fetchRecentEvents({bool refresh = true, bool primary = true}) async {
     if (refresh) {
       eventsModel = [];
       page = 1;
-      notifyListeners();
+      if (primary) notifyListeners();
     }
 
     final results = await WebUtil.fetchRecentEvents(page: page);
