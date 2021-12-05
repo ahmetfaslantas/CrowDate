@@ -8,10 +8,10 @@ class WebUtil {
   static final String apiKey = dotenv.get("APIKEY");
   static const String _baseUrl = "app.ticketmaster.com";
 
-  static Future<List<EventModel>> fetchRecentEvents() async {
+  static Future<List<EventModel>> fetchRecentEvents({int page = 1}) async {
     final queryParams = {
       "apikey": apiKey,
-      "sort": "date,asc"
+      "page": page.toString()
     };
 
     final uri = Uri.https(_baseUrl, "/discovery/v2/events.json", queryParams);

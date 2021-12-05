@@ -8,8 +8,8 @@ class EventModel {
   final String genre;
   final String subGenre;
   final String currency;
-  final int minPrice;
-  final int maxPrice;
+  final double minPrice;
+  final double maxPrice;
   final String address;
 
   EventModel(
@@ -24,8 +24,12 @@ class EventModel {
       required this.maxPrice,
       required this.address});
 
+  // TODO: Find a better solution than this.
   factory EventModel.fromJSON(Map<String, dynamic> json) {
-    dynamic image = {"url": "https://s1.ticketm.net/dam/c/014/8d67fea3-d080-4e72-9094-ecf138a37014_105391_TABLET_LANDSCAPE_16_9.jpg"};
+    dynamic image = {
+      "url":
+          "https://s1.ticketm.net/dam/c/014/8d67fea3-d080-4e72-9094-ecf138a37014_105391_TABLET_LANDSCAPE_16_9.jpg"
+    };
     for (var img in json["images"]) {
       if (!img["fallback"] && img["width"] > 640) {
         image = img;
@@ -34,18 +38,18 @@ class EventModel {
 
     var venues = json["_embedded"]["venues"][0];
 
-    String address = venues["country"] + venues["city"];
+    String address = venues["country"]["name"] + " " + venues["city"]["name"];
 
     return EventModel(
         id: json["id"],
         name: json["name"],
         date: json["dates"]["start"]["localDate"],
         imageURL: image["url"],
-        genre: json["classifications"]["genre"],
-        subGenre: json["classifications"]["subgenre"],
-        currency: json["priceRanges"]["currency"],
-        minPrice: json["priceRanges"]["min"],
-        maxPrice: json["priceRanges"]["max"],
+        genre: json["classifications"][0]["genre"]["name"],
+        subGenre: json["classifications"][0]["subGenre"]["name"],
+        currency: json.containsKey("priceRanges") ? json["priceRanges"][0]["currency"] : "USD",
+        minPrice: json.containsKey("priceRanges") ? json["priceRanges"][0]["min"] : 5,
+        maxPrice: json.containsKey("priceRanges") ? json["priceRanges"][0]["max"] : 5,
         address: address);
   }
 }
