@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       Provider.of<EventListViewModel>(context, listen: false)
-          .fetchRecentEvents();
+          .fetchEvents();
     });
   }
 

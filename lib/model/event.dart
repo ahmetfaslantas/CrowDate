@@ -30,26 +30,36 @@ class EventModel {
       "url":
           "https://s1.ticketm.net/dam/c/014/8d67fea3-d080-4e72-9094-ecf138a37014_105391_TABLET_LANDSCAPE_16_9.jpg"
     };
-    for (var img in json["images"]) {
+    for (Map<String, dynamic> img in json["images"]) {
       if (!img["fallback"] && img["width"] > 640) {
         image = img;
       }
     }
 
-    var venues = json["_embedded"]["venues"][0];
-
-    String address = venues["country"]["name"] + " " + venues["city"]["name"];
+    String address = json.containsKey("place")
+        ? json["place"]["country"]["name"] + " " + json["place"]["city"]["name"]
+        : "No address provided.";
 
     return EventModel(
         id: json["id"],
         name: json["name"],
         date: json["dates"]["start"]["localDate"],
         imageURL: image["url"],
-        genre: json["classifications"][0]["genre"]["name"],
-        subGenre: json["classifications"][0]["subGenre"]["name"],
-        currency: json.containsKey("priceRanges") ? json["priceRanges"][0]["currency"] : "USD",
-        minPrice: json.containsKey("priceRanges") ? json["priceRanges"][0]["min"] : 5,
-        maxPrice: json.containsKey("priceRanges") ? json["priceRanges"][0]["max"] : 5,
+        genre: json.containsKey("classifications") &&
+                json["classifications"][0]["genre"] != null
+            ? json["classifications"][0]["genre"]["name"]
+            : "Other",
+        subGenre: json.containsKey("classifications") &&
+                json["classifications"][0]["subGenre"] != null
+            ? json["classifications"][0]["subGenre"]["name"]
+            : "Other",
+        currency: json.containsKey("priceRanges")
+            ? json["priceRanges"][0]["currency"]
+            : "USD",
+        minPrice:
+            json.containsKey("priceRanges") ? json["priceRanges"][0]["min"] : 5,
+        maxPrice:
+            json.containsKey("priceRanges") ? json["priceRanges"][0]["max"] : 5,
         address: address);
   }
 }

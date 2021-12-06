@@ -16,13 +16,13 @@ class EventPreviewList extends StatelessWidget {
             onNotification: (scrollInfo) {
               if (scrollInfo.metrics.maxScrollExtent ==
                   scrollInfo.metrics.pixels) {
-                eventsPreview.fetchRecentEvents(refresh: false);
+                eventsPreview.fetchEvents(refresh: false);
               }
               return true;
             },
             child: RefreshIndicator(
               onRefresh: () {
-                return eventsPreview.fetchRecentEvents(primary: false);
+                return eventsPreview.fetchEvents(primary: false);
               },
               child: ListView(
                 children: [
