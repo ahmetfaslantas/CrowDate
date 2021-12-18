@@ -6,14 +6,20 @@ class EventListViewModel extends ChangeNotifier {
   List<EventViewModel> eventsModel = [];
   int page = 1;
 
-  Future<void> fetchEvents({bool refresh = true, bool primary = true}) async {
+  Future<void> fetchEvents(
+      {bool refresh = true,
+      bool primary = true,
+      String keyword = "",
+      String locale = "",
+      String sort = "date,asc"}) async {
     if (refresh) {
       eventsModel = [];
       page = 1;
       if (primary) notifyListeners();
     }
 
-    final results = await WebUtil.fetchEvents(page: page);
+    final results = await WebUtil.fetchEvents(
+        page: page, keyword: keyword, locale: locale, sort: sort);
 
     if (refresh) {
       eventsModel = results.map((item) => EventViewModel(model: item)).toList();
@@ -23,6 +29,12 @@ class EventListViewModel extends ChangeNotifier {
       page++;
     }
 
+    notifyListeners();
+  }
+
+  void clear() {
+    eventsModel = [];
+    page = 1;
     notifyListeners();
   }
 }

@@ -1,4 +1,7 @@
+import 'package:crowdate/view/eventpreviewlist.dart';
+import 'package:crowdate/viewmodel/eventlist.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -12,41 +15,64 @@ class _SearchState extends State<Search> {
   String dropdownValue = "USA";
 
   @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(() {
+      Provider.of<EventListViewModel>(context, listen: false)
+          .fetchEvents(keyword: _searchController.text);
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Container(
-          width: double.infinity,
-          height: 40,
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(5)),
-          child: Center(
-            child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: _searchController.clear,
+    return WillPopScope(
+      onWillPop: () {
+        Provider.of<EventListViewModel>(context, listen: false)
+            .fetchEvents(refresh: true, primary: true);
+        return Future.value(true);
+      },
+      child: Scaffold(
+          appBar: AppBar(
+            title: Container(
+              width: double.infinity,
+              height: 40,
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(5)),
+              child: Center(
+                child: TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.search),
+                      suffixIcon: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.clear),
+                            onPressed: _searchController.clear,
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.menu),
+                            onPressed: showFilterDialog,
+                          ),
+                        ],
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.menu),
-                        onPressed: showFilterDialog,
-                      ),
-                    ],
-                  ),
-                  hintText: 'Search...',
-                  border: InputBorder.none),
+                      hintText: 'Search...',
+                      border: InputBorder.none),
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-      body: Container(// TODO: Replace with search content.
-
-          ),
+          body: Consumer<EventListViewModel>(
+            builder: (context, list, child) {
+              return EventPreviewList(eventsPreview: list);
+            },
+          )),
     );
   }
 

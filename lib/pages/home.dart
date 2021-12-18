@@ -18,8 +18,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      Provider.of<EventListViewModel>(context, listen: false)
-          .fetchEvents();
+      Provider.of<EventListViewModel>(context, listen: false).fetchEvents();
     });
   }
 
@@ -32,6 +31,7 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
+                Provider.of<EventListViewModel>(context, listen: false).clear();
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => const Search()));
               },
