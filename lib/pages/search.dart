@@ -12,14 +12,23 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   final TextEditingController _searchController = TextEditingController();
-  String dropdownValue = "USA";
+  String localeName = "us";
+  List<String> selectedGenrelist = [];
+
+  Map<String, String> genres = {
+    "Music": "KnvZfZ7vAkJ",
+    "Comedy": "KnvZfZ7vAkA",
+    "Action/Adventure": "KnvZfZ7vAke",
+    "eSports": "KnvZfZ7vAJF",
+    "Drama": "KnvZfZ7vAk6",
+    "Basketball": "KnvZfZ7vAde"
+  };
 
   @override
   void initState() {
     super.initState();
     _searchController.addListener(() {
-      Provider.of<EventListViewModel>(context, listen: false)
-          .fetchEvents(keyword: _searchController.text);
+      Provider.of<EventListViewModel>(context, listen: false).fetchEvents(keyword: _searchController.text, genreList: selectedGenrelist);
     });
   }
 
@@ -58,7 +67,10 @@ class _SearchState extends State<Search> {
                           ),
                           IconButton(
                             icon: const Icon(Icons.menu),
-                            onPressed: showFilterDialog,
+                            onPressed: () async {
+                              await showFilterDialog();
+                              Provider.of<EventListViewModel>(context, listen: false).fetchEvents(keyword: _searchController.text, locale: localeName, genreList: selectedGenrelist);
+                            },
                           ),
                         ],
                       ),
@@ -76,8 +88,8 @@ class _SearchState extends State<Search> {
     );
   }
 
-  void showFilterDialog() {
-    showDialog(
+  Future showFilterDialog() {
+    return showDialog(
         context: context,
         builder: (context) {
           return StatefulBuilder(
@@ -116,19 +128,19 @@ class _SearchState extends State<Search> {
                               isExpanded: true,
                               borderRadius: BorderRadius.circular(4),
                               hint: const Text("Select Country"),
-                              value: dropdownValue,
+                              value: localeName,
                               onChanged: (String? data) {
                                 setState(() {
-                                  dropdownValue = data!;
+                                  localeName = data!;
                                 });
                               },
                               items: const [
                                 DropdownMenuItem(
-                                    value: "USA", child: Text("USA")),
+                                    value: "us", child: Text("USA")),
                                 DropdownMenuItem(
-                                    value: "Canada", child: Text("Canada")),
+                                    value: "ca", child: Text("Canada")),
                                 DropdownMenuItem(
-                                    value: "UK", child: Text("UK")),
+                                    value: "gb", child: Text("UK")),
                               ],
                             ),
                           ),
@@ -151,21 +163,12 @@ class _SearchState extends State<Search> {
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Wrap(
                           spacing: 8,
-                          children: [
-                            FilterChip(
-                                label: const Text("Sports"),
-                                onSelected: (bool value) {}),
-                            FilterChip(
-                                label: const Text("Comedy"),
-                                onSelected: (bool value) {}),
-                            FilterChip(
-                                selected: true,
-                                label: const Text("Community"),
-                                onSelected: (bool value) {}),
-                            FilterChip(
-                                label: const Text("Food and Drinks"),
-                                onSelected: (bool value) {}),
-                          ],
+                          children: genres.entries.map((entry) => FilterChip(selected: selectedGenrelist.contains(entry.value), label: Text(entry.key), onSelected: (bool value) {
+                            value ? selectedGenrelist.add(entry.value) : selectedGenrelist.remove(entry.value);
+                            setState(() {
+
+                            });
+                          })).toList()
                         ),
                       ),
                       Expanded(child: Container()),
@@ -175,6 +178,8 @@ class _SearchState extends State<Search> {
                           TextButton(
                             child: const Text("Cancel"),
                             onPressed: () {
+                              selectedGenrelist = [];
+                              localeName = "";
                               Navigator.pop(context);
                             },
                           ),

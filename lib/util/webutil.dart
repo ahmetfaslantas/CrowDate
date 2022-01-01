@@ -12,7 +12,8 @@ class WebUtil {
       {int page = 1,
       String keyword = "",
       String locale = "",
-      String sort = "date,asc"}) async {
+      String sort = "date,asc",
+      List<String> genreList = const []}) async {
     DateTime now = DateTime.now();
 
     String convertedDateTime =
@@ -24,17 +25,22 @@ class WebUtil {
       "keyword": keyword,
       "locale": locale,
       "sort": sort,
-      "startDateTime": convertedDateTime
+      "startDateTime": convertedDateTime,
+      "genreId": genreList
     };
 
-    queryParams.removeWhere((key, value) => value == "");
+    queryParams.removeWhere((key, value) => value == "" || value == []);
 
     final uri = Uri.https(_baseUrl, "/discovery/v2/events.json", queryParams);
 
     final response = await http.get(uri);
 
-    final List<dynamic> json = jsonDecode(response.body)["_embedded"]["events"];
-
-    return json.map((e) => EventModel.fromJSON(e)).toList();
+    try {
+      final List<dynamic> json =
+          jsonDecode(response.body)["_embedded"]["events"];
+      return json.map((e) => EventModel.fromJSON(e)).toList();
+    } catch (e) {
+      return [];
+    }
   }
 }

@@ -11,7 +11,8 @@ class EventListViewModel extends ChangeNotifier {
       bool primary = true,
       String keyword = "",
       String locale = "",
-      String sort = "date,asc"}) async {
+      String sort = "date,asc",
+      List<String> genreList = const []}) async {
     if (refresh) {
       eventsModel = [];
       page = 1;
@@ -19,7 +20,7 @@ class EventListViewModel extends ChangeNotifier {
     }
 
     final results = await WebUtil.fetchEvents(
-        page: page, keyword: keyword, locale: locale, sort: sort);
+        page: page, keyword: keyword, locale: locale, sort: sort, genreList: genreList);
 
     if (refresh) {
       eventsModel = results.map((item) => EventViewModel(model: item)).toList();
