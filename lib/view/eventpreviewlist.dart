@@ -11,7 +11,8 @@ class EventPreviewList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return eventsPreview.eventsModel.isNotEmpty
+    return eventsPreview.eventsModel.isNotEmpty ||
+            !eventsPreview.resultsAvailable
         ? NotificationListener<ScrollEndNotification>(
             onNotification: (scrollInfo) {
               if (scrollInfo.metrics.maxScrollExtent ==
@@ -24,20 +25,40 @@ class EventPreviewList extends StatelessWidget {
               onRefresh: () {
                 return eventsPreview.fetchEvents(primary: false);
               },
-              child: ListView(
-                children: [
-                  for (EventViewModel item in eventsPreview.eventsModel)
-                    EventPreview(model: item),
-                  Column(
-                    children: const [
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: CircularProgressIndicator(),
-                      )
-                    ],
-                  )
-                ],
-              ),
+              child: eventsPreview.resultsAvailable
+                  ? ListView(
+                      children: [
+                        for (EventViewModel item in eventsPreview.eventsModel)
+                          EventPreview(model: item),
+                        Column(
+                          children: const [
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: CircularProgressIndicator(),
+                            )
+                          ],
+                        )
+                      ],
+                    )
+                  : Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.event_busy_rounded,
+                            size: 100,
+                            color: Colors.black54,
+                          ),
+                          Text(
+                            "No Events Found!",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black54,
+                                fontSize: 30),
+                          )
+                        ],
+                      ),
+                    ),
             ))
         : const Center(
             child: CircularProgressIndicator(),
