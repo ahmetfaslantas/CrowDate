@@ -59,7 +59,8 @@ class _FollowingState extends State<Following> {
                                     const Text("Followed Events"),
                                     Consumer<EventListViewModel>(
                                       builder: (context, list, child) {
-                                        return Text(list.eventsModel.length.toString());
+                                        return Text(
+                                            list.eventsModel.length.toString());
                                       },
                                     ),
                                   ],
