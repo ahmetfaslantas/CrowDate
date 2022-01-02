@@ -11,6 +11,7 @@ class EventModel {
   final double minPrice;
   final double maxPrice;
   final String address;
+  final String info;
 
   EventModel(
       {required this.id,
@@ -22,7 +23,8 @@ class EventModel {
       required this.currency,
       required this.minPrice,
       required this.maxPrice,
-      required this.address});
+      required this.address,
+      required this.info});
 
   // TODO: Find a better solution than this.
   factory EventModel.fromJSON(Map<String, dynamic> json) {
@@ -60,6 +62,9 @@ class EventModel {
             json.containsKey("priceRanges") ? json["priceRanges"][0]["min"] : 5,
         maxPrice:
             json.containsKey("priceRanges") ? json["priceRanges"][0]["max"] : 5,
-        address: address);
+        address: address,
+        info: json.containsKey("description")
+            ? json["description"]
+            : "No description provided.");
   }
 }

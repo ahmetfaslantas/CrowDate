@@ -117,11 +117,11 @@ class EventDetails extends StatelessWidget {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Event Details Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce congue pretium nisi a dignissim. Duis bibendum iaculis porttitor. Aenean sagittis eros est, non feugiat lorem tincidunt eu.",
-                style: TextStyle(fontSize: 18, color: Colors.black54),
+                model.info,
+                style: const TextStyle(fontSize: 18, color: Colors.black54),
                 textAlign: TextAlign.justify,
               ),
             ),

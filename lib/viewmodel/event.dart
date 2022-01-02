@@ -45,6 +45,10 @@ class EventViewModel {
     return model.address;
   }
 
+  String get info {
+    return model.info;
+  }
+
   int get daysUntil {
     return DateTime.parse(date).difference(DateTime.now()).inDays;
   }
