@@ -33,11 +33,11 @@ class EventViewModel {
     return model.currency;
   }
 
-  int get minPrice {
+  double get minPrice {
     return model.minPrice;
   }
 
-  int get maxPrice {
+  double get maxPrice {
     return model.maxPrice;
   }
 
@@ -45,7 +45,11 @@ class EventViewModel {
     return model.address;
   }
 
-  int get daysUntil  {
+  String get info {
+    return model.info;
+  }
+
+  int get daysUntil {
     return DateTime.parse(date).difference(DateTime.now()).inDays;
   }
 }
