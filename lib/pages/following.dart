@@ -1,5 +1,6 @@
 import 'package:crowdate/view/eventpreviewlist.dart';
 import 'package:crowdate/viewmodel/eventlist.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -40,7 +41,7 @@ class _FollowingState extends State<Following> {
                             child: CircleAvatar(
                               radius: 30,
                               child: ClipOval(
-                                child: Image.asset("assets/icon/Icon-512.png"),
+                                child: Image(image: NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!),),
                               ),
                             ),
                           ),

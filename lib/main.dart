@@ -1,11 +1,17 @@
-import 'package:crowdate/pages/home.dart';
+import 'package:crowdate/pages/splash.dart';
 import 'package:crowdate/viewmodel/eventlist.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
+import 'firebase_options.dart';
+
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await dotenv.load();
   runApp(ChangeNotifierProvider(
       create: (_) => EventListViewModel(), child: const CrowDate()));
@@ -21,7 +27,7 @@ class CrowDate extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const SplashPage(),
       debugShowCheckedModeBanner: false,
     );
   }
