@@ -98,7 +98,7 @@ class _SearchState extends State<Search> {
           ),
           body: Consumer<EventListViewModel>(
             builder: (context, list, child) {
-              return EventPreviewList(eventsPreview: list);
+              return EventPreviewList(eventsPreview: list, expandable: true);
             },
           )),
     );

@@ -1,4 +1,6 @@
 import 'package:crowdate/pages/details.dart';
+import 'package:crowdate/util/firestoreutil.dart';
+import 'package:crowdate/util/sqlutil.dart';
 import 'package:crowdate/viewmodel/event.dart';
 import 'package:flutter/material.dart';
 
@@ -67,7 +69,9 @@ class EventPreview extends StatelessWidget {
                       Icons.notification_add,
                       color: Colors.black54,
                     ),
-                    onPressed: () {
+                    onPressed: () async {
+                      await FirestoreUtil.putFavorite(model.model);
+                      await SQLUtil.putFavorite(model.model);
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Event added to the following list!"),
                       ));

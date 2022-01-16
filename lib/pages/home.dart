@@ -3,6 +3,7 @@ import 'package:crowdate/pages/login.dart';
 import 'package:crowdate/pages/search.dart';
 import 'package:crowdate/view/eventpreviewlist.dart';
 import 'package:crowdate/viewmodel/eventlist.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -42,12 +43,13 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              const UserAccountsDrawerHeader(
-                  accountName: Text("Name"), // TODO: Replace with user name.
-                  accountEmail: Text("Email"), // TODO: Replace with user email.
+              UserAccountsDrawerHeader(
+                  accountName:
+                      Text(FirebaseAuth.instance.currentUser!.displayName!),
+                  accountEmail: Text(FirebaseAuth.instance.currentUser!.email!),
                   currentAccountPicture: CircleAvatar(
-                    backgroundImage: AssetImage(
-                        "assets/icon/Icon-512.png"), // TODO: Replace with network image.
+                    backgroundImage: NetworkImage(
+                        FirebaseAuth.instance.currentUser!.photoURL!),
                   )),
               ListTile(
                 title: Row(
@@ -82,11 +84,14 @@ class _HomePageState extends State<HomePage> {
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const Login()));
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text("Logged out!"),
-                  ));
+                  FirebaseAuth.instance.signOut().then((value) => {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const Login())),
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Logged out!"),
+                        ))
+                      });
                 },
               )
             ],
@@ -94,7 +99,7 @@ class _HomePageState extends State<HomePage> {
         ),
         body: Consumer<EventListViewModel>(
           builder: (context, list, child) {
-            return EventPreviewList(eventsPreview: list);
+            return EventPreviewList(eventsPreview: list, expandable: true);
           },
         ));
   }
