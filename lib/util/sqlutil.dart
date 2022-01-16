@@ -15,4 +15,13 @@ class SQLUtil {
     });
     await database.insert("events", json, conflictAlgorithm: ConflictAlgorithm.replace);
   }
+
+  static Future<void> removeFavorite(EventModel model) async {
+    final database = await openDatabase(
+      join(await getDatabasesPath(), "events.db"),
+      version: 1,
+    );
+
+    await database.delete("events", where: "id = ?", whereArgs: [model.id]);
+  }
 }

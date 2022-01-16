@@ -1,3 +1,4 @@
+import 'package:crowdate/util/sqlutil.dart';
 import 'package:crowdate/viewmodel/event.dart';
 import 'package:flutter/material.dart';
 
@@ -130,7 +131,8 @@ class EventDetails extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.notifications_off),
-        onPressed: () {
+        onPressed: () async {
+          await SQLUtil.removeFavorite(model.model);
           ScaffoldMessenger.of(context)
               .showSnackBar(const SnackBar(content: Text("Event Unfollowed")));
         },
