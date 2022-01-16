@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crowdate/pages/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -83,6 +84,12 @@ class _LoginState extends State<Login> {
                           await signInWithGoogle();
 
                           if (FirebaseAuth.instance.currentUser != null) {
+                            String uid = FirebaseAuth.instance.currentUser!.uid;
+                            DocumentReference ref = FirebaseFirestore.instance.collection("users").doc(uid);
+                            DocumentSnapshot snapshot = await ref.get();
+                            if (!snapshot.exists) {
+                              ref.set({});
+                            }
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
                                     builder: (context) => const HomePage()),

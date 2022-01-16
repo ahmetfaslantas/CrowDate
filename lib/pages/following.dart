@@ -12,6 +12,15 @@ class Following extends StatefulWidget {
 }
 
 class _FollowingState extends State<Following> {
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      Provider.of<EventListViewModel>(context, listen: false).fetchFavorites();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +87,7 @@ class _FollowingState extends State<Following> {
         },
         body: Consumer<EventListViewModel>(
           builder: (context, list, child) {
-            return EventPreviewList(eventsPreview: list);
+            return EventPreviewList(eventsPreview: list, expandable: false);
           },
         ),
       ),
