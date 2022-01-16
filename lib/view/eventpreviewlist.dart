@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 
 class EventPreviewList extends StatelessWidget {
   final EventListViewModel eventsPreview;
+  final bool expandable;
 
-  const EventPreviewList({Key? key, required this.eventsPreview})
+  const EventPreviewList({Key? key, required this.eventsPreview, required this.expandable})
       : super(key: key);
 
   @override
@@ -16,7 +17,7 @@ class EventPreviewList extends StatelessWidget {
         ? NotificationListener<ScrollEndNotification>(
             onNotification: (scrollInfo) {
               if (scrollInfo.metrics.maxScrollExtent ==
-                  scrollInfo.metrics.pixels) {
+                  scrollInfo.metrics.pixels && expandable) {
                 eventsPreview.fetchEvents(refresh: false);
               }
               return true;
@@ -30,14 +31,14 @@ class EventPreviewList extends StatelessWidget {
                       children: [
                         for (EventViewModel item in eventsPreview.eventsModel)
                           EventPreview(model: item),
-                        Column(
+                        expandable ? Column(
                           children: const [
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: CircularProgressIndicator(),
                             )
                           ],
-                        )
+                        ) : Container()
                       ],
                     )
                   : Center(

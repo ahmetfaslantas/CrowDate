@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crowdate/pages/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -77,11 +80,23 @@ class _LoginState extends State<Login> {
                       ),
                       SignInButton(
                         Buttons.Google,
-                        onPressed: () {
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (context) => const HomePage()),
-                              (Route<dynamic> route) => false);
+                        onPressed: () async {
+                          await signInWithGoogle();
+
+                          if (FirebaseAuth.instance.currentUser != null) {
+                            String uid = FirebaseAuth.instance.currentUser!.uid;
+                            DocumentReference ref = FirebaseFirestore.instance.collection("users").doc(uid);
+                            DocumentSnapshot snapshot = await ref.get();
+                            if (!snapshot.exists) {
+                              ref.set({});
+                            }
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (context) => const HomePage()),
+                                (Route<dynamic> route) => false);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Sign in failed!")));
+                          }
                         },
                       )
                     ],
@@ -91,5 +106,19 @@ class _LoginState extends State<Login> {
             }),
       ),
     );
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }

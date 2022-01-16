@@ -1,3 +1,4 @@
+import 'package:crowdate/util/firestoreutil.dart';
 import 'package:crowdate/util/webutil.dart';
 import 'package:crowdate/viewmodel/event.dart';
 import 'package:flutter/foundation.dart';
@@ -36,6 +37,23 @@ class EventListViewModel extends ChangeNotifier {
           .addAll(results.map((item) => EventViewModel(model: item)).toList());
       page++;
     }
+
+    if (results.isEmpty) {
+      resultsAvailable = false;
+    } else {
+      resultsAvailable = true;
+    }
+
+    notifyListeners();
+  }
+
+  Future<void> fetchFavorites() async {
+    eventsModel = [];
+    notifyListeners();
+
+    final results = await FirestoreUtil.getFavorites();
+
+    eventsModel = results.map((item) => EventViewModel(model: item)).toList();
 
     if (results.isEmpty) {
       resultsAvailable = false;

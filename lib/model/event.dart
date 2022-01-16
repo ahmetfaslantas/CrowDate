@@ -26,6 +26,19 @@ class EventModel {
       required this.address,
       required this.info});
 
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "date": date,
+    "imageURL": imageURL,
+    "genre": genre,
+    "subGenre": subGenre,
+    "currency": currency,
+    "minPrice": minPrice,
+    "maxPrice": maxPrice,
+    "address": address,
+    "info": info
+  };
+
   // TODO: Find a better solution than this.
   factory EventModel.fromJSON(Map<String, dynamic> json) {
     dynamic image = {
@@ -66,5 +79,20 @@ class EventModel {
         info: json.containsKey("description")
             ? json["description"]
             : "No description provided.");
+  }
+
+  factory EventModel.fromSanitizedJSON(Map<String, dynamic> json) {
+    return EventModel(
+        id: json["id"],
+        name: json["name"],
+        date: json["date"],
+        imageURL: json["imageURL"],
+        genre: json["genre"],
+        subGenre: json["subGenre"],
+        currency: json["currency"],
+        minPrice: json["minPrice"],
+        maxPrice: json["maxPrice"],
+        address: json["address"],
+        info: json["info"]);
   }
 }
