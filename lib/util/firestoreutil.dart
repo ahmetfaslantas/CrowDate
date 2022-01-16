@@ -32,8 +32,6 @@ class FirestoreUtil {
 
   static Future<void> removeFavorite(EventModel model) async {
     String uid = FirebaseAuth.instance.currentUser!.uid;
-    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection("users").doc(uid).collection("favorites").where("id", isEqualTo: model.id).limit(1).get();
-
-    await FirebaseFirestore.instance.collection("users").doc(uid).collection("favorites").doc(snapshot.docs[0].id).delete();
+    await FirebaseFirestore.instance.collection("users").doc(uid).collection("favorites").doc(model.id).delete();
   }
 }
