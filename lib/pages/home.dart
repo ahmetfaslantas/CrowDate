@@ -45,11 +45,11 @@ class _HomePageState extends State<HomePage> {
             children: [
               UserAccountsDrawerHeader(
                   accountName:
-                      Text(FirebaseAuth.instance.currentUser!.displayName!),
-                  accountEmail: Text(FirebaseAuth.instance.currentUser!.email!),
+                      Text(FirebaseAuth.instance.currentUser!.displayName ?? "Anonymous"),
+                  accountEmail: Text(FirebaseAuth.instance.currentUser!.email ?? "No Email Provided"),
                   currentAccountPicture: CircleAvatar(
                     backgroundImage: NetworkImage(
-                        FirebaseAuth.instance.currentUser!.photoURL!),
+                        FirebaseAuth.instance.currentUser!.photoURL ?? "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"),
                   )),
               ListTile(
                 title: Row(
