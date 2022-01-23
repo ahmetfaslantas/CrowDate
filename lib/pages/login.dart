@@ -88,7 +88,30 @@ class _LoginState extends State<Login> {
                             DocumentReference ref = FirebaseFirestore.instance.collection("users").doc(uid);
                             DocumentSnapshot snapshot = await ref.get();
                             if (!snapshot.exists) {
-                              ref.set({});
+                              Map<String, dynamic> empty = {};
+                              ref.set(empty);
+                            }
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (context) => const HomePage()),
+                                (Route<dynamic> route) => false);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Sign in failed!")));
+                          }
+                        },
+                      ),
+                      ElevatedButton(
+                        child: const Text("Sign in Anonymously"),
+                        onPressed: () async {
+                          await FirebaseAuth.instance.signInAnonymously();
+                          
+                          if (FirebaseAuth.instance.currentUser != null) {
+                            String uid = FirebaseAuth.instance.currentUser!.uid;
+                            DocumentReference ref = FirebaseFirestore.instance.collection("users").doc(uid);
+                            DocumentSnapshot snapshot = await ref.get();
+                            if (!snapshot.exists) {
+                              Map<String, dynamic> empty = {};
+                              ref.set(empty);
                             }
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(

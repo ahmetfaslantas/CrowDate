@@ -50,7 +50,7 @@ class _FollowingState extends State<Following> {
                             child: CircleAvatar(
                               radius: 30,
                               child: ClipOval(
-                                child: Image(image: NetworkImage(FirebaseAuth.instance.currentUser!.photoURL!),),
+                                child: Image(image: NetworkImage(FirebaseAuth.instance.currentUser!.photoURL ?? "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"),),
                               ),
                             ),
                           ),
