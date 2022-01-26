@@ -42,13 +42,10 @@ class _LoginState extends State<Login> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(
                             8, 8, 8, MediaQuery.of(context).size.height / 32),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50.0),
-                          child: const Image(
-                            image: AssetImage("assets/icon/Icon-512.png"),
-                            width: 100,
-                            height: 100,
-                          ),
+                        child: const Image(
+                          image: AssetImage("assets/icon/icon.png"),
+                          width: 100,
+                          height: 100,
                         ),
                       ),
                       const Text(
