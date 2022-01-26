@@ -26,9 +26,21 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).primaryColor,
-      child: const Image(image: AssetImage("assets/icon/Icon-512.png"),), // TODO: Replace with a better logo.
+    return Material(
+      type: MaterialType.transparency,
+      child: Container(
+        color: Theme.of(context).primaryColor,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Image(image: AssetImage("assets/icon/icon.png",), width: 150, height: 150,),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text("CrowDate", style: TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold),),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

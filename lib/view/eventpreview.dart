@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:crowdate/pages/details.dart';
 import 'package:crowdate/util/firestoreutil.dart';
@@ -13,7 +15,7 @@ class EventPreview extends StatelessWidget {
 
   static void sendNotification() async {
     await NotificationUtil()
-        .showNotification(DateTime.now().millisecondsSinceEpoch, "Event Reminder", "An Event You Follow is About to Start!");
+        .showNotification(Random().nextInt(9999999), "Event Reminder", "An Event You Follow is About to Start!");
   }
 
   @override
@@ -83,7 +85,7 @@ class EventPreview extends StatelessWidget {
                           model.daysUntil > 0
                               ? DateTime.parse(model.date)
                               : DateTime.now().add(const Duration(minutes: 2)),
-                          DateTime.now().millisecondsSinceEpoch,
+                          Random().nextInt(9999999),
                           sendNotification,
                           exact: true,
                           allowWhileIdle: true,
