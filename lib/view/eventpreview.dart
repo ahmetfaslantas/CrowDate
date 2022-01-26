@@ -1,5 +1,7 @@
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:crowdate/pages/details.dart';
 import 'package:crowdate/util/firestoreutil.dart';
+import 'package:crowdate/util/notificationutil.dart';
 import 'package:crowdate/util/sqlutil.dart';
 import 'package:crowdate/viewmodel/event.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,11 @@ class EventPreview extends StatelessWidget {
   final EventViewModel model;
 
   const EventPreview({Key? key, required this.model}) : super(key: key);
+
+  static void sendNotification() async {
+    await NotificationUtil()
+        .showNotification(DateTime.now().millisecondsSinceEpoch, "Event Reminder", "An Event You Follow is About to Start!");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +79,15 @@ class EventPreview extends StatelessWidget {
                     onPressed: () async {
                       await FirestoreUtil.putFavorite(model.model);
                       await SQLUtil.putFavorite(model.model);
+                      await AndroidAlarmManager.oneShotAt(
+                          model.daysUntil > 0
+                              ? DateTime.parse(model.date)
+                              : DateTime.now().add(const Duration(minutes: 2)),
+                          DateTime.now().millisecondsSinceEpoch,
+                          sendNotification,
+                          exact: true,
+                          allowWhileIdle: true,
+                          rescheduleOnReboot: true);
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Event added to the following list!"),
                       ));
